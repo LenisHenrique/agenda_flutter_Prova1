@@ -8,6 +8,7 @@ const String emailColumn = "emailColumn";
 const String phoneColumn = "telefoneColumn";
 const String imgColumn = "imgColumn";
 
+//estrutura de banco de daodos criando uma tabela de contatos para id, nome, email, telefone e imagem
 class ContactHelper {
   static final ContactHelper _instance = ContactHelper.internal();
 
@@ -21,7 +22,7 @@ class ContactHelper {
     return _db;
     }
 
-  Future<Database> initDb() async {
+  Future<Database> initDb() async {//funcao que localiza ou cria o arquivo do bd que chamei de contacts
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, "contacts.db");
 
@@ -41,7 +42,7 @@ class ContactHelper {
     return contact;
   }
 
-  Future<Contact?> getContact(int id) async {
+  Future<Contact?> getContact(int id) async {//retorna um contato
     Database dbContact = await db;
     List<Map> maps = await dbContact.query(
       contactTable,
@@ -57,17 +58,17 @@ class ContactHelper {
     }
   }
 
-  Future<int> deleteContact(int id) async {
+  Future<int> deleteContact(int id) async {// remove o contato
     Database dbContact = await db;
     return await dbContact.delete(contactTable, where: "$idColumn = ?", whereArgs: [id]);
   }
 
-  Future<int> updateContact(Contact contact) async {
+  Future<int> updateContact(Contact contact) async {//modifica as infos de um contato que ja existe
     Database dbContact = await db;
     return await dbContact.update(contactTable, contact.toMap(), where: "$idColumn = ?", whereArgs: [contact.id]);
   }
 
-  Future<List<Contact>> getAllContacts() async {
+  Future<List<Contact>> getAllContacts() async {//retorna uma lista de todos os contatos salvs
     Database dbContact = await db;
     List<Map<String, dynamic>> listMap = await dbContact.rawQuery("SELECT * FROM $contactTable");
     List<Contact> listContact = listMap.map((m) => Contact.fromMap(m)).toList();
@@ -79,7 +80,7 @@ class ContactHelper {
     return Sqflite.firstIntValue(await dbContact.rawQuery("SELECT COUNT(*) FROM $contactTable"));
   }
 
-  Future close() async {
+  Future close() async {//essa funcao fecha a conexao com o bd
     Database dbContact = await db;
     dbContact.close();
   }
