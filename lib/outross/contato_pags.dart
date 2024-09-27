@@ -26,7 +26,7 @@ class _ContactPageState extends State<ContactPage> {
   void initState() {
     super.initState();
 
-    if (widget.contact == null) {
+    if (widget.contact == null) {//usando o widget os contatos são carregados para edicao
       _editedContact = Contact();
     } else {
       _editedContact = Contact.fromMap(widget.contact!.toMap());
@@ -38,7 +38,7 @@ class _ContactPageState extends State<ContactPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {//willpopscape permite interceptar a acao de voltar para verificar se houve alterações
     return WillPopScope( //prof se eu colocar o PopScope, ele da erro e eu nao consigo mudar este erro, então estou usando o WillPopScope que ja esta obsoleto mas funcionou
       onWillPop: _requestPop,
       child: Scaffold(
@@ -47,7 +47,7 @@ class _ContactPageState extends State<ContactPage> {
           title: Text(_editedContact.nome ?? "Novo Contato"),
           centerTitle: true,
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton(//neste caso é um botão salvar e el salva o contato se o nome estiver preenchido
           onPressed: () {
             if (_editedContact.nome != null && _editedContact.nome!.isNotEmpty) {
               Navigator.pop(context, _editedContact);
@@ -77,7 +77,7 @@ class _ContactPageState extends State<ContactPage> {
                   ),
                 ),
                 onTap: () async {
-                  final ImagePicker picker = ImagePicker();
+                  final ImagePicker picker = ImagePicker();//o mesmo pode escolher ou tirar uma foto para salvar como contato
                   final XFile? file = await picker.pickImage(source: ImageSource.camera);
                   if (file == null) return;
                   setState(() {
