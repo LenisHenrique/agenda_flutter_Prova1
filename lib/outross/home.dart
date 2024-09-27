@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(//exibe o titulo contatos e um menu para ordenar a lista
         title: const Text("Contatos"),
         backgroundColor: Colors.blueGrey,
         centerTitle: true,
@@ -47,11 +47,12 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(//add novos contatos ele permite
+
         onPressed: () {
           _showContactPage();
         },
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.blueGrey,//cor
         child: const Icon(Icons.add),
       ),
       body: ListView.builder(
@@ -65,7 +66,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _contactCard(BuildContext context, int index) {
-    return GestureDetector(
+    return GestureDetector(//ao tocar em um contato abre um modal com opççoes para ligar, editar ou excluir
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Row(
